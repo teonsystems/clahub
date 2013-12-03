@@ -143,7 +143,7 @@ feature "Agreeing to a CLA" do
     status_params = {
       state: status,
       target_url: "#{HOST}/agreements/#{user_name}/#{repo_name}",
-      description: PushStatusChecker::STATUS_DESCRIPTIONS[status]
+      description: PayloadStatusChecker::STATUS_DESCRIPTIONS[status]
     }
 
     expect(a_request(:post, status_url).with(body: status_params.to_json)).to have_been_made

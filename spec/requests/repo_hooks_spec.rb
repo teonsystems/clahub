@@ -112,9 +112,79 @@ describe 'receiving github repo webhook callbacks' do
     expect(a_request(:post, status_url).with(body: status_params.to_json)).to have_been_made
   end
 
+  it 'gets a pull_request with 1 commit, where the author has agreed, and marks the commit as success' do
+    user = create(:user, email: 'jason@gmail.com', nickname: 'jasonm', oauth_token: token)
+    agreement = create(:agreement, user: user, repo_name: 'mangostickyrice')
+    create(:signature, user: user, agreement: agreement)
+
+    # mock_github_user_repos(oauth_token: oauth_token_for('the_owner'),
+    #   repos: [
+    #     { name: 'alpha', id: 123, owner: { login: 'the_owner' } },
+    #     { name: 'beta',  id: 456, owner: { login: 'the_owner' } }
+    #   ]
+    # )
+
+
+    # mock_github_pull_commits(
+    #   owner: 'jasonm', repo: 'mangostickyrice', pull_id: '3',
+    #   commits: [
+    #     { author: { login: 'carlisle_contributor' }, sha: 'bbb222' },
+    #   ]
+    # )
+
+
+    payload = {
+      # WHAT GOES HERE
+      # why do pull reqs have different structure
+      # repository: { name: 'mangostickyrice', owner: { login: 'jasonm', email: 'jason@gmail.com' } },
+      # commits: [ { id: 'aaa111', author: { name: 'Jason', username: 'jasonm', email: 'jason@gmail.com' } } ]
+    }
+    post '/repo_hook', { payload: payload.to_json }, 'HTTP_X_GITHUB_EVENT' => 'push'
+
+    status_url = "https://api.github.com/repos/jasonm/mangostickyrice/statuses/aaa111?access_token=#{token}"
+    status_params = {
+      state: 'success',
+      target_url: "#{HOST}/agreements/jasonm/mangostickyrice",
+      description: 'All contributors have signed the Contributor License Agreement.'
+    }
+    expect(a_request(:post, status_url).with(body: status_params.to_json)).to have_been_made
+  end
+
+  it 'gets a pull_request with 1 commit, where the author has NOT agreed, and marks the commit as failure' do
+    pending
+  end
+
   it 'gets a push with many commits, where the single author has agreed, and marks all commits as success'
   it 'gets a push with many commits, where multiple authors all agreed, and marks the commit as success'
   it 'gets a push with many commits, where some authors agreed and others did not, and marks each commit correctly'
 
   it 'updates applicable "failure" commit statuses to "success" when a user agrees to a new agreement'
 end
+# { "action": "synchronize",
+#   "number": 8,
+#   "pull_request": {
+#     "user": {
+#       "login": "jasonm",
+#     },
+#     "head": {
+#       "sha": "5e530ad5384383464094b24ed9a4dc5721a99856",
+#       "user": {
+#         "login": "jasonm",
+#       },
+#     },
+#     "base": {
+#     },
+#     "_links": {
+#     },
+#   },
+#   "repository": {
+#     "id": 8044451,
+#     "name": "clahub-org-test",
+#     "full_name": "clahub/clahub-org-test",
+#     "owner": {
+#       "login": "clahub",
+#     },
+#   },
+#   "sender": {
+#   }
+# }

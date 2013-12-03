@@ -13,7 +13,7 @@ class CheckOpenPullsJob
     return true if !self.enabled
 
     pushes.each do |push|
-      PushStatusChecker.new(push).check_and_update
+      PayloadStatusChecker.new(push).check_and_update
     end
   end
 
@@ -25,6 +25,7 @@ class CheckOpenPullsJob
         @user_name, @repo_name, pull_mash.number)
 
       # TODO this is a weird adapter, unweird it
+      # Use GithubPullRequest to adapt, argument into PayloadStatusChecker
       GithubPush.new({
         repository: {
           owner: { name: @user_name },

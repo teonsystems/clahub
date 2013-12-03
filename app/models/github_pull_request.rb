@@ -1,4 +1,4 @@
-class GithubPush
+class GithubPullRequest
   def initialize(json)
     @mash = Hashie::Mash.new(JSON.parse(json))
   end
@@ -8,10 +8,10 @@ class GithubPush
   end
 
   def user_name
-    @mash.repository.try(:owner).try(:login)
+    @mash.repository.try(:owner).try(:name)
   end
 
   def commits
-    @mash.commits || []
+    [@mash.pull_request.head.sha]
   end
 end

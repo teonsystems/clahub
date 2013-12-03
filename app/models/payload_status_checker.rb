@@ -1,18 +1,18 @@
-class PushStatusChecker
+class PayloadStatusChecker
   STATUS_DESCRIPTIONS = {
     'success' => 'All contributors have signed the Contributor License Agreement.',
     'failure' => 'Not all contributors have signed the Contributor License Agreement.'
   }
 
-  def initialize(push)
-    @push = push
+  def initialize(payload)
+    @payload = payload
   end
 
   def check_and_update
-    Rails.logger.info("PushStatusChecker#check_and_update for push #{@push.user_name}/#{@push.repo_name}:#{@push.commits.map(&:id).join(',')}")
+    Rails.logger.info("PayloadStatusChecker#check_and_update for payload #{@payload.user_name}/#{@payload.repo_name}:#{@payload.commits.map(&:id).join(',')}")
     return unless repo_agreement
 
-    @push.commits.each do |commit|
+    @payload.commits.each do |commit|
       check_commit(commit)
     end
   end
@@ -32,9 +32,9 @@ class PushStatusChecker
   end
 
   def mark(commit, state)
-    target_url = "#{HOST}/agreements/#{@push.user_name}/#{@push.repo_name}"
+    target_url = "#{HOST}/agreements/#{@payload.user_name}/#{@payload.repo_name}"
 
-    GithubRepos.new(repo_agreement.user).set_status(@push.user_name, @push.repo_name, sha = commit.id, {
+    GithubRepos.new(repo_agreement.user).set_status(@payload.user_name, @payload.repo_name, sha = commit.id, {
       state: state,
       target_url: target_url,
       description: STATUS_DESCRIPTIONS[state]
@@ -68,8 +68,8 @@ class PushStatusChecker
 
   def repo_agreement
     @repo_agreement ||= Agreement.where({
-      user_name: @push.user_name,
-      repo_name: @push.repo_name
+      user_name: @payload.user_name,
+      repo_name: @payload.repo_name
     }).first
   end
 end
