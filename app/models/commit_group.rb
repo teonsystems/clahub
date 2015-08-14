@@ -87,7 +87,7 @@ class CommitGroup
       state: STATUS_TYPES[status_name]['state'],
       target_url: target_url,
       description: STATUS_TYPES[status_name]['description'],
-      context: "clahub"
+      context: CLAHUB_CONFIG['oauth_context_title']
     })
 
     STATUS_TYPES[status_name]['state'] == 'success'

@@ -8,6 +8,7 @@
 /.bundle
 
 # Ignore instance/deployment configuration
+/config/config.yml
 /config/database.yml
 
 # Ignore the default SQLite database.

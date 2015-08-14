@@ -1,4 +1,7 @@
 class ApplicationController < ActionController::Base
+
+  before_filter :set_common_variables
+
   protect_from_forgery
 
   private
@@ -23,5 +26,9 @@ class ApplicationController < ActionController::Base
 
   def sign_out
     session[:user_id] = nil
+  end
+
+  def set_common_variables
+    @CLAHUB_CONFIG = $CLAHUB_CONFIG
   end
 end

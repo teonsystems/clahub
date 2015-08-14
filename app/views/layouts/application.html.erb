@@ -2,9 +2,11 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>CLAHub</title>
+  <title><%= @CLAHUB_CONFIG['html_header_title'] %></title>
   <%= stylesheet_link_tag "application", :media => "all" %>
   <%= csrf_meta_tags %>
+  <link rel="shortcut icon" href="<%= @CLAHUB_CONFIG['favicon_uri'] %>" />
+  <link rel="icon"          href="<%= @CLAHUB_CONFIG['favicon_uri'] %>" type="image/vnd.microsoft.icon" />
   <link rel="apple-touch-icon" href="/touch-icon/iphone.png" />
   <link rel="apple-touch-icon" sizes="72x72" href="/touch-icon/ipad.png" />
   <link rel="apple-touch-icon" sizes="114x114" href="/touch-icon/iphone-retina.png" />
