@@ -7,4 +7,7 @@
   <p>Or, read more about <%= link_to 'what CLAs are and why you might use one', page_path('why_cla') %>&hellip;</p>
 </div>
 
-<%= render partial: 'how_it_works' %>
+
+<% if @CLAHUB_CONFIG['homepage_display_howto'] %>
+    <%= render partial: 'how_it_works' %>
+<% end %>

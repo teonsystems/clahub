@@ -3,10 +3,23 @@
     <a class="brand" href="#"><%= @CLAHUB_CONFIG['page_header_brand'] %></a>
     <ul class="nav">
       <%= nav_link_to 'Home', home_path %>
-      <%= nav_link_to 'Why CLAs?', page_path('why_cla') %>
+
+      <% if @CLAHUB_CONFIG['nav_display_why_cla'] %>
+        <%= nav_link_to 'Why CLAs?', page_path('why_cla') %>
+      <% end %>
+
       <% if signed_in? %>
         <%= nav_link_to 'My agreements and signatures', agreements_path %>
       <% end %>
     </ul>
+
+    <% if @CLAHUB_CONFIG['nav_display_signout'] %>
+      <% if signed_in? %>
+        <ul class="nav pull-right">
+          <%= nav_link_to 'Sign Out', sign_out_path %>
+        </ul>
+      <% end %>
+    <% end %>
+
   </div>
 </div>
