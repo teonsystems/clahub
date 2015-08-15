@@ -1,6 +1,6 @@
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
-    <a class="brand" href="#"><%= @CLAHUB_CONFIG['page_header_brand'] %></a>
+    <%= link_to @CLAHUB_CONFIG['page_header_brand'], home_path, html_options = { :class => "brand"} %>
     <ul class="nav">
       <%= nav_link_to 'Home', home_path %>
 
