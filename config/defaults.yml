@@ -8,6 +8,11 @@
 #   vi config/config.yml
 #
 ---
+
+###
+### Branding
+###
+
 oauth_context_title:      CLAHub
 html_header_title:        CLAHub
 page_header_brand:        CLAHub
@@ -15,13 +20,19 @@ favicon_uri:              /favicon.ico
 
 
 
-### Display/hide parts of application
-#
+###
+### Display/hide parts of website
+###
+
+# Navigation bar options
 nav_display_why_cla:      true
 nav_display_signout:      false
 
+# Footer customization
 footer_display_privacy:   true
 footer_display_terms:     true
 footer_display_signout:   true
+footer_custom_html:       ""   # Replace the whole footer with this custom html
 
+# Whether or not to display the "howto" slides on front page
 homepage_display_howto:   true

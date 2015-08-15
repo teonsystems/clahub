@@ -25,6 +25,10 @@
   <%= yield %>
 
   <footer class="row">
+    <% if @CLAHUB_CONFIG['footer_custom_html'].present? %>
+      <%=raw @CLAHUB_CONFIG['footer_custom_html'] %>
+    <% else %>
+
     <ul class="footer-links">
       <li class="block">&copy; Jason Morrison 2012.  All Rights Reserved.</li>
       <li class="block">CLAHub is a trademark of Jason Morrison.</li>
@@ -48,6 +52,8 @@
       <% end %>
     </ul>
     </div>
+
+    <% end %><!-- else -->
   </footer>
 </div>
 
