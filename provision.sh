@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PHANTOMJS_VERSION=1.9.8-linux-i686
+PHANTOMJS_VERSION=1.9.8-linux-x86_64
 
 echo "Updating package cache"
 sudo apt-get update -y > /dev/null
@@ -26,6 +26,9 @@ make
 sudo make install
 gem install bundler
 
+# Disable installation of gem documentation
+echo "gem: --no-ri --no-rdoc" >> ~/.gemrc
+
 # PhantomJS (version available on apt is out-of-date)
 echo "Installing PhatomJS"
 sudo apt-get install -y fontconfig
@@ -38,7 +41,13 @@ cd /vagrant
 echo "Installing gems"
 # Fully-qualified path to bundler necessary to disambiguate from the version
 # installed by Vagrant (which uses Ruby 1.9)
-/usr/local/lib/ruby/gems/2.1.0/gems/bundler-1.7.12/bin/bundle
+#/usr/local/lib/ruby/gems/2.1.0/gems/bundler-1.7.12/bin/bundle
+#
+# Any version might be installed, use whatever comes handy
+/usr/local/lib/ruby/gems/2.1.0/gems/bundler-*/bin/bundle
+#
+# If not running via vagrant, ruby is not installed, just use main bundler
+#bundle
 
 echo "Preparing database"
 # "Force Postgres to install with UTF8 encoding, not LATIN1?"
