@@ -24,7 +24,7 @@
 
   <%= yield %>
 
-  <footer class="row">
+  <footer class="container">
     <% if @CLAHUB_CONFIG['footer_custom_html'].present? %>
       <%=raw @CLAHUB_CONFIG['footer_custom_html'] %>
     <% else %>
