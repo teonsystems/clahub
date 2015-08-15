@@ -5,17 +5,14 @@
 
 
 
-### Define defaults
+### Load defaults
 #
-CLAHUB_CONFIG_DEFAULTS = Hash.new
-CLAHUB_CONFIG_DEFAULTS['oauth_context_title'] = 'CLAHub'
-CLAHUB_CONFIG_DEFAULTS['html_header_title']   = 'CLAHub'
-CLAHUB_CONFIG_DEFAULTS['page_header_brand']   = 'CLAHub'
-CLAHUB_CONFIG_DEFAULTS['favicon_uri']         = '/favicon.ico'
+configDefaultsFile = "#{Rails.root}/config/defaults.yml"
+CLAHUB_CONFIG_DEFAULTS = YAML.load_file(configDefaultsFile)
 
 
 
-### Read configuration file, if exists
+### Read config customizations file, if exists
 #
 # Also, if someone speified content under environment key, use that
 #

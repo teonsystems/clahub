@@ -1,0 +1,14 @@
+#
+# WARNING: DO NOT MODIFY THIS FILE!
+#
+# Q: How to override defaults?
+# All settings from this file can be overriden in CLAHUB_ROOT/config/config.yml file.
+#
+#   cp config/defaults.yml config/config.yml
+#   vi config/config.yml
+#
+---
+oauth_context_title: CLAHub
+html_header_title:   CLAHub
+page_header_brand:   CLAHub
+favicon_uri:         /favicon.ico
